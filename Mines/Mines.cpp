@@ -170,12 +170,12 @@ void dll::GRID::MinesArround(int row, int col)
 		if (my_flags & left_flag)
 		{
 			if (array[row + 1][col - 1].content == MINE)array[row][col].mines_arround++;
-			if (array[row][col + 1].content == MINE)array[row][col].mines_arround++;
+			if (!(my_flags & up_flag) && array[row][col - 1].content == MINE)array[row][col].mines_arround++;
 		}
 		if (my_flags & right_flag)
 		{
 			if (array[row + 1][col + 1].content == MINE)array[row][col].mines_arround++;
-			if (array[row][col + 1].content == MINE)array[row][col].mines_arround++;
+			if (!(my_flags & up_flag) && array[row][col + 1].content == MINE)array[row][col].mines_arround++;
 		}
 	}
 	
