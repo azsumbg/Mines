@@ -101,8 +101,8 @@ dll::GRID::GRID(int rows_number, int cols_number, int level) :rows{ rows_number 
 		break;
 	}
 
-	float tx{ 0 };
-	float ty{ 50.0f };
+	float tx{ 2.0f };
+	float ty{ 52.0f };
 
 	for (int i = 0; i < rows; ++i)
 	{
@@ -115,7 +115,7 @@ dll::GRID::GRID(int rows_number, int cols_number, int level) :rows{ rows_number 
 			tx += CELL_DIM;
 		}
 
-		tx = 0;
+		tx = 2.0f;
 		ty += CELL_DIM;
 	}
 
@@ -134,6 +134,8 @@ dll::GRID::~GRID()
 
 void dll::GRID::MinesArround(int row, int col)
 {
+	if (array[row][col].content == MINE)return;
+
 	unsigned char my_flags{ 0 };
 
 	constexpr unsigned char up_flag{ 0b00000001 };
@@ -189,14 +191,23 @@ void dll::GRID::MinesArround(int row, int col)
 		}
 	}
 
+	array[row][col].content = array[row][col].mines_arround;
 }
 int dll::GRID::MinesRemaining()const
 {
 	return all_mines;
 }
-void dll::GRID::MineFound(int row, int col)
+void dll::GRID::MineMarked(int row, int col, bool mark_it)
 {
-	if (array[row][col].content == MINE)--all_mines;
+	if (mark_it)
+	{
+		if(array[row][col].content == MINE)--all_mines;
+	}
+	else
+	{
+		if (array[row][col].content == MINE)++all_mines;
+	}
+	
 }
 int dll::GRID::SelectTile(int row, int col)
 {
@@ -218,7 +229,14 @@ int dll::GRID::ShowTileInfo(int row, int col)
 
 	return array[row][col].content;
 }
-
+FRECT dll::GRID::GetTileDims(int row, int col) const
+{
+	return array[row][col].dims;
+}
+bool dll::GRID::IsTileSelected(int row, int col) const
+{
+	return array[row][col].selected;
+}
 void dll::GRID::Release()
 {
 	delete this;
