@@ -237,9 +237,5 @@ bool dll::GRID::IsTileSelected(int row, int col) const
 {
 	return array[row][col].selected;
 }
-void dll::GRID::Release()
-{
-	delete this;
-}
 
 ////////////////////////////////////////

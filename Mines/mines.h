@@ -86,8 +86,7 @@ namespace dll
 	public:
 		GRID(int rows_number, int cols_number, int level);
 		~GRID();
-		void Release();
-
+	
 		int MinesRemaining()const;
 		void MineMarked(int row, int col, bool mark_it);
 		bool IsTileSelected(int row, int col) const;
