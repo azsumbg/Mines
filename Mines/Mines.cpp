@@ -229,6 +229,12 @@ int dll::GRID::ShowTileInfo(int row, int col)
 
 	return array[row][col].content;
 }
+void dll::GRID::SetTileInfo(int row, int col, int content, bool active)
+{
+	array[row][col].content = content;
+	if (array[row][col].content != MINE)array[row][col].mines_arround = content;
+	array[row][col].selected = active;
+}
 FRECT dll::GRID::GetTileDims(int row, int col) const
 {
 	return array[row][col].dims;
